@@ -10,7 +10,8 @@ except ImportError:
 
 def get_lyrics(song_name):
 
-    song_name += ' metrolyrics'
+    song_name += ' lyrics.com'
+
     name = quote_plus(song_name)
     hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11'
            '(KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
@@ -20,14 +21,13 @@ def get_lyrics(song_name):
     url = 'http://www.google.com/search?q=' + name
 
     result = requests.get(url, headers=hdr).text
-    link_start = result.find('http://www.metrolyrics.com')
+    link_start = result.find('https://www.lyrics.com')
 
     if(link_start == -1):
-        return("Lyrics not found on Metrolyrics")
+        return("Lyrics not found on lyrics.com")
         
-    link_end = result.find('html', link_start + 1)
-    link = result[link_start:link_end + 4]
-
+    link_end = result.find('&', link_start + 1)
+    link = result[link_start:link_end]
 
     lyrics_html = requests.get(link, headers={
                                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel'
@@ -37,14 +37,17 @@ def get_lyrics(song_name):
                                ).text
 
     soup = BeautifulSoup(lyrics_html, "lxml")
-    raw_lyrics = (soup.findAll('p', attrs={'class': 'verse'}))
+    raw_lyrics = (soup.findAll('pre', attrs={'class': 'lyric-body'}))
+    
+    raw_lyrics_soup = BeautifulSoup(str(raw_lyrics[0]), 'html.parser')
+    
+    raw_lyrics_text = str(raw_lyrics_soup.text)
+    
     paras = []
     try:
-        final_lyrics = unicode.join(u'\n', map(unicode, raw_lyrics))
+        final_lyrics = unicode.join(u'', map(unicode, raw_lyrics_text))
     except NameError:
-        final_lyrics = str.join(u'\n', map(str, raw_lyrics))
+        final_lyrics = str.join(u'', map(str, raw_lyrics_text))
 
-    final_lyrics = (final_lyrics.replace('<p class="verse">', '\n'))
-    final_lyrics = (final_lyrics.replace('<br/>', ' '))
-    final_lyrics = final_lyrics.replace('</p>', ' ')
     return (final_lyrics)
+
