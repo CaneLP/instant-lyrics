@@ -1,4 +1,5 @@
-# UPDATE: Switched search to lyrics.com because metrolyrics didn't work.
+# MY UPDATE: Switched search to lyrics.com because metrolyrics didn't work.
+-CaneLP
 
 # Instant-Lyrics
 
@@ -42,7 +43,7 @@ A linux application with a very convinient GUI. Build with Python Gtk+3 (gi).
 
 First, install the requirements:
 
-### For Ubuntu/Debian based systems:
+### For Ubuntu/Debian based systems: 
 
 ``` sh
 sudo apt install python-gi python-dbus gir1.2-appindicator3-0.1 python-requests python-bs4 python-lxml
