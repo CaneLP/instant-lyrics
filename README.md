@@ -1,3 +1,5 @@
+# UPDATE: Switched search to lyrics.com because metrolyrics didn't work.
+
 # Instant-Lyrics
 
 Instantly fetches the lyrics of the currently playing spotify song, or any song, and displays it on a window.
