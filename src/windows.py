@@ -45,6 +45,9 @@ class LyricsWindow(Gtk.Window):
         self.add(scrolled)
         self.show_all()
 
+    def on_click_me_clicked(self, button):
+        self.get_spotify()
+
     def on_key_release(self, widget, ev, data=None):
         if ev.keyval == Gdk.KEY_Return:
             self.fetch_lyrics()
@@ -85,6 +88,10 @@ class LyricsWindow(Gtk.Window):
         lyrics_vbox.set_size_request(
                         int(app.Config.get('Main', 'window width')), 
                         int(app.Config.get('Main', 'window height')))
+
+        button = Gtk.Button.new_with_label("Refresh")
+        button.connect("clicked", self.on_click_me_clicked)
+        lyrics_vbox.pack_start(button, True, True, 0)
 
         return lyrics_vbox
 
