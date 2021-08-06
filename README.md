@@ -1,4 +1,6 @@
-# MY UPDATE: Switched search to lyrics.com because metrolyrics didn't work.
+# MY UPDATES:
+- Switched search to lyrics.com because metrolyrics didn't work.
+- Added large **refresh** button to get currently playing song on Spotify.
 -CaneLP
 
 # Instant-Lyrics
